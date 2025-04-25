@@ -24,7 +24,7 @@ function OTPVerification() {
     setError('');
     setIsSending(true); // Set sending state
     try {
-      await axios.post('http://localhost:5000/api/users/send-otp', { email });
+      await axios.post('https://hostel-complaint-management-backend.vercel.app/api/users/send-otp', { email });
       setOtpSent(true); // OTP has been successfully sent
       setCountdown(30); // Reset countdown after sending OTP
     } catch (error) {
@@ -47,7 +47,7 @@ function OTPVerification() {
     setError('');
     setIsVerifying(true); // Set verifying state
     try {
-      const response = await axios.post('http://localhost:5000/api/users/verify-otp', { email, otp });
+      const response = await axios.post('https://hostel-complaint-management-backend.vercel.app/api/users/verify-otp', { email, otp });
       setOtpVerified(true); // Set OTP verified to true
       setError(''); // Clear any previous errors
       navigate('/change-password', { state: { email } }); // Redirect to change password page with email
