@@ -62,7 +62,7 @@ function ChangePassword() {
   
     try {
       // Now use the stored email from localStorage
-      const response = await axios.put('http://localhost:5000/api/users/update-password', {
+      const response = await axios.put('https://hostel-complaint-management-backend.vercel.app/api/users/update-password', {
         email: storedEmail,  // Send email from localStorage
         newPassword
       });

@@ -33,7 +33,7 @@ const CCHostels = () => {
     const fetchHostels = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/users/hostels"
+          "https://hostel-complaint-management-backend.vercel.app/api/users/hostels"
         );
         setHostels(response.data);
       } catch (error) {

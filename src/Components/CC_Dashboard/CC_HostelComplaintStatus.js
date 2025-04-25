@@ -9,7 +9,7 @@ const CCDashboard = () => {
   useEffect(() => {
     const fetchHostels = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/hostels");
+        const response = await axios.get("https://hostel-complaint-management-backend.vercel.app/api/users/hostels");
         setHostels(response.data);
       } catch (error) {
         console.error("Error fetching hostels:", error.message);
@@ -22,7 +22,7 @@ const CCDashboard = () => {
   const handleView = async (hostelName) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/users/hostel-stats/${hostelName}`
+        `https://hostel-complaint-management-backend.vercel.app/api/users/hostel-stats/${hostelName}`
       );
       setSelectedStats(response.data);
     } catch (error) {

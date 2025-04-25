@@ -10,7 +10,7 @@ const FooterSection = () => {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/stats");
+        const response = await axios.get("https://hostel-complaint-management-backend.vercel.app/api/users/stats");
         setCounts(response.data);
       } catch (error) {
         console.error("Error fetching counts:", error.message);

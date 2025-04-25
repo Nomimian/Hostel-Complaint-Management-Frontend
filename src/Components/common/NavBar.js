@@ -21,7 +21,7 @@ const NavBar = ({ setSearchQuery }) => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/users/profile",
+        "https://hostel-complaint-management-backend.vercel.app/api/users/profile",
         {
           withCredentials: true,
         }

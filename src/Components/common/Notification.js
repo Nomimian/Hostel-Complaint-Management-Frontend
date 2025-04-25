@@ -32,7 +32,7 @@ function Notification({registrationNo}) {
         id = userRole;
       }
       const response = await axios.get(
-        `http://localhost:5000/api/users/notifications/${id}`
+        `https://hostel-complaint-management-backend.vercel.app/api/users/notifications/${id}`
       );
       setNotifications(response.data);
     } catch (error) {

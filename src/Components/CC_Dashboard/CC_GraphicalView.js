@@ -40,7 +40,7 @@ const RT_Graph_Dashboard = () => {
 
   const fetchGraphData = async (month) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/complaint-stats?month=${month}&hostel=${hostel}`);
+      const response = await axios.get(`https://hostel-complaint-management-backend.vercel.app/api/users/complaint-stats?month=${month}&hostel=${hostel}`);
       setGraphData(response.data);
     } catch (error) {
       console.error("Error fetching graph data:", error);

@@ -10,7 +10,7 @@ const CCDashboardRT = () => {
   useEffect(() => {
     const fetchRTs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/rts");
+        const response = await axios.get("https://hostel-complaint-management-backend.vercel.app/api/users/rts");
         setRts(response.data);
       } catch (error) {
         console.error("Error fetching RTs:", error);
