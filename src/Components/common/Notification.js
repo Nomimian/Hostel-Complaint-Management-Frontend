@@ -13,6 +13,8 @@ function Notification({registrationNo}) {
   const [notifications, setNotifications] = useState([]);
   const notificationRef = useRef(null);
   const userRole = localStorage.getItem("userRole");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   // ✅ Fetch notifications by registration number
   const fetchNotifications = async (regNo) => {
     if (!regNo) return;
@@ -32,7 +34,7 @@ function Notification({registrationNo}) {
         id = userRole;
       }
       const response = await axios.get(
-        `https://hostel-complaint-management-backend.vercel.app/api/users/notifications/${id}`
+        `${backendUrl}/api/users/notifications/${id}`
       );
       setNotifications(response.data);
     } catch (error) {

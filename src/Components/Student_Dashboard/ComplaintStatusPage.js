@@ -7,7 +7,8 @@ const ComplaintStatusPage = ({ searchQuery = '' }) => {
   const [complaints, setComplaints] = useState([]);
   const [filteredComplaints, setFilteredComplaints] = useState([]);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
-  
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   // ✅ Ensure consistency with 'userRegNo' from Login.js
   const [loggedInRegNo, setLoggedInRegNo] = useState(localStorage.getItem('userRegNo') || '');
 
@@ -25,7 +26,7 @@ const ComplaintStatusPage = ({ searchQuery = '' }) => {
     try {
       console.log('📨 Fetching complaints for:', regNo);
       const response = await axios.get(
-        `http://localhost:5000/api/users/student-complaints?regNo=${regNo}`
+        `${backendUrl}/api/users/student-complaints?regNo=${regNo}`
       );
 
       const fetchedComplaints = response.data?.complaints || [];

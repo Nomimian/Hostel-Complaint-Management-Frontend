@@ -8,6 +8,7 @@ const SA_Hostels = () => {
   const [editingHostel, setEditingHostel] = useState(null);
   const [newHostel, setNewHostel] = useState({ name: "", rooms: "" });
   const [showAddForm, setShowAddForm] = useState(false);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     fetchHostels();
@@ -15,7 +16,7 @@ const SA_Hostels = () => {
 
   const fetchHostels = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users/hostels");
+      const response = await axios.get(`${backendUrl}/api/users/hostels`);
       setHostels(response.data);
     } catch (error) {
       console.error("Error fetching hostels:", error.message);
@@ -24,7 +25,7 @@ const SA_Hostels = () => {
 
   const handleView = async (hostelName) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/hostel-stats/${hostelName}`);
+      const response = await axios.get(`${backendUrl}/api/users/hostel-stats/${hostelName}`);
       setSelectedStats(response.data);
     } catch (error) {
       console.error("Error fetching hostel stats:", error.message);
@@ -38,7 +39,7 @@ const SA_Hostels = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/users/hostels", {
+      await axios.post(`${backendUrl}/api/users/hostels`, {
         name: newHostel.name.trim(),
         rooms: Number(newHostel.rooms),
       });
@@ -52,7 +53,7 @@ const SA_Hostels = () => {
 
   const handleDeleteHostel = async (hostelName) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/hostels/${hostelName}`);
+      await axios.delete(`${backendUrl}/api/users/hostels/${hostelName}`);
       setHostels(hostels.filter((h) => h.name !== hostelName));
     } catch (error) {
       console.error("Error deleting hostel:", error.message);
@@ -71,7 +72,7 @@ const SA_Hostels = () => {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/users/hostels/${editingHostel.name}`,
+        `${backendUrl}/api/users/hostels/${editingHostel.name}`,
         { rooms: Number(editingHostel.rooms) }
       );
       setEditingHostel(null);

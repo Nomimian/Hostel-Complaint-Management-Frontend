@@ -7,12 +7,13 @@ const StatusBar = () => {
   const { complaintId } = useParams(); // Extract complaintId from URL
   const [status, setStatus] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchComplaintStatus = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/users/complaint/${complaintId}`
+          `${backendUrl}/api/users/complaint/${complaintId}`
         );
         const complaintData = response.data.complaint;
         console.log("Fetched Complaint Details:", complaintData);

@@ -13,10 +13,11 @@ const SA_DashboardCC = () => {
     const [selectedCC, setSelectedCC] = useState(null); // State for viewing RT details
   // const [showModal, setShowModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false); // State for view modal
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Fetch CC users
   useEffect(() => {
-    fetch("http://localhost:5000/api/users/cc")
+    fetch(`${backendUrl}/api/users/cc`)
       .then((res) => res.json())
       .then((data) => setCCs(data))
       .catch((err) => console.error("Error fetching CCs:", err));
@@ -31,7 +32,7 @@ const SA_DashboardCC = () => {
   // Save Edited CC
   const handleSave = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/users/cc/${id}`, {
+      const res = await fetch(`${backendUrl}/api/users/cc/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editedCC),
@@ -48,7 +49,7 @@ const SA_DashboardCC = () => {
   // Handle Delete
   const handleRemove = async (id) => {
           try {
-        await fetch(`http://localhost:5000/api/users/cc/${id}`, { method: "DELETE" });
+        await fetch(`${backendUrl}/api/users/cc/${id}`, { method: "DELETE" });
         setCCs(CCs.filter((cc) => cc._id !== id));
       } catch (error) {
         console.error("Error deleting CC:", error);
@@ -60,7 +61,7 @@ const SA_DashboardCC = () => {
     try {
       const ccData = { ...newCC, role: "CC", hostel: "none" }; // Merging both properties
   
-      const response = await axios.post("http://localhost:5000/api/users/cc", ccData);
+      const response = await axios.post(`${backendUrl}/api/users/cc`, ccData);
   
       setCCs([...CCs, response.data]); 
       setShowAddPopup(false);

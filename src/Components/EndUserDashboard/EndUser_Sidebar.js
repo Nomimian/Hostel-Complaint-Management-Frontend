@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPerson } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 function EndUserSidebar() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [counts, setCounts] = useState({
     students: 0,
     totalComplaints: 0,
@@ -18,7 +19,7 @@ function EndUserSidebar() {
     const fetchCounts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/users/stats"
+          `${backendUrl}/api/users/stats`
         );
         setCounts(response.data);
       } catch (error) {

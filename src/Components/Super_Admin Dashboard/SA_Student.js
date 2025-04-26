@@ -12,10 +12,11 @@ const SA_DashboardStd = () => {
   const [showViewModal, setShowViewModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Fetch students from backend
   useEffect(() => {
-    axios.get("http://localhost:5000/api/users/students")
+    axios.get(`${backendUrl}/api/users/students`)
       .then(response => setStudents(response.data))
       .catch(error => console.error("Error fetching students:", error));
   }, []);
@@ -23,7 +24,7 @@ const SA_DashboardStd = () => {
   // Add new student
   const handleAddNewStudent = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/users/students", newStudent);
+      const response = await axios.post(`${backendUrl}/api/users/students`, newStudent);
       
       setStudents([...students, response.data]);
       setShowAddModal(false);
@@ -47,7 +48,7 @@ const SA_DashboardStd = () => {
   // Delete student
   const handleRemove = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/students/${id}`);
+      await axios.delete(`${backendUrl}/api/users/students/${id}`);
       setStudents(students.filter(student => student._id !== id));
     } catch (error) {
       console.error("Error deleting student:", error);
@@ -68,7 +69,7 @@ const SA_DashboardStd = () => {
   // Save edited student details
   const handleSaveEdit = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/users/students/${id}`, editingStudent);
+      await axios.put(`${backendUrl}/api/users/students/${id}`, editingStudent);
       setStudents(students.map(student => (student._id === id ? editingStudent : student)));
       setEditingStudent(null);
     } catch (error) {

@@ -9,6 +9,7 @@ const SA_DashboardMunshi = () => {
   const [showModal, setShowModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [newMunshi, setNewMunshi] = useState({
     name: "",
@@ -24,7 +25,7 @@ const SA_DashboardMunshi = () => {
 
   const fetchMunshis = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users/munshi");
+      const response = await axios.get(`${backendUrl}/api/users/munshi`);
       setMunshis(response.data);
     } catch (error) {
       console.error("Error fetching Munshis:", error);
@@ -37,7 +38,7 @@ const SA_DashboardMunshi = () => {
 
   const handleSave = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/users/munshi/${id}`, editingMunshi);
+      await axios.put(`${backendUrl}/api/users/munshi/${id}`, editingMunshi);
       setMunshis(munshis.map((munshi) => (munshi._id === id ? editingMunshi : munshi)));
       setEditingMunshi(null);
     } catch (error) {
@@ -47,7 +48,7 @@ const SA_DashboardMunshi = () => {
 
   const handleRemove = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/munshi/${id}`);
+      await axios.delete(`${backendUrl}/api/users/munshi/${id}`);
       setMunshis(munshis.filter((munshi) => munshi._id !== id));
     } catch (error) {
       console.error("Error deleting Munshi:", error);
@@ -57,7 +58,7 @@ const SA_DashboardMunshi = () => {
   const handleAddNewUser = async () => {
     try {
       console.log("Adding new Munshi:", newMunshi);
-      const response = await axios.post("http://localhost:5000/api/users/munshi", newMunshi);
+      const response = await axios.post(`${backendUrl}/api/users/munshi`, newMunshi);
 
       setMunshis([...munshis, response.data]);
       setShowModal(false);

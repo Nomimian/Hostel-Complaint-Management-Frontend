@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 const ListOfComplaint = () => {
   const [wardenComplaints, setWardenComplaints] = useState([]);
   const [expandedComplaintId, setExpandedComplaintId] = useState(null);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const endUserMapping = {
     "Electricity": "Electrician",
@@ -16,7 +17,7 @@ const ListOfComplaint = () => {
   useEffect(() => {
     const fetchWardenComplaints = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/complaints");
+        const response = await axios.get(`${backendUrl}/api/users/complaints`);
         console.log("Sample complaint:", response.data.complaints[0]);
 
         const filteredComplaints = response.data.complaints.filter(
@@ -35,7 +36,7 @@ const ListOfComplaint = () => {
     const endUserRole = endUserMapping[type] || "Other";
 
     try {
-      await axios.put(`http://localhost:5000/api/users/assign/${complaintId}`, {
+      await axios.put(`${backendUrl}/api/users/assign/${complaintId}`, {
         assignedTo: endUserRole,
         status: "End User",
       });

@@ -6,6 +6,7 @@ import "./Munshi_SideBar.css";
 import comp from "../assets/images/complaint_icon.png";
 import axios from "axios";
 function Munshi_Sidebar() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [counts, setCounts] = useState({
     students: 0,
     totalComplaints: 0,
@@ -17,7 +18,7 @@ function Munshi_Sidebar() {
     const fetchCounts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/users/stats"
+          `${backendUrl}/api/users/stats`
         );
         setCounts(response.data);
       } catch (error) {

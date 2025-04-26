@@ -16,12 +16,13 @@ const NavBar = ({ setSearchQuery }) => {
     localStorage.getItem("registrationNo") || ""
   );
   const [localSearchQuery, setLocalSearchQuery] = useState("");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   // ✅ Fetch registration number from backend and store in localStorage
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        "https://hostel-complaint-management-backend.vercel.app/api/users/profile",
+        `${backendUrl}/api/users/profile`,
         {
           withCredentials: true,
         }

@@ -16,11 +16,12 @@ const CCDashboardWarden = () => {
   const [showModal, setShowModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [selectedWarden, setSelectedWarden] = useState(null);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchWardens = async () => {
       try {
-        const response = await axios.get("https://hostel-complaint-management-backend.vercel.app/api/users/wardens");
+        const response = await axios.get(`${backendUrl}/api/users/wardens`);
         setWardens(response.data);
       } catch (error) {
         console.error("Error fetching wardens:", error);

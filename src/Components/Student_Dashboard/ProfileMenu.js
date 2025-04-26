@@ -8,6 +8,7 @@ const ProfileMenu = ({ isOpen, onClose }) => {
   const [userDetails, setUserDetails] = useState(null);
   const profileMenuRef = useRef(null); // Reference to the profile menu container
   const navigate = useNavigate(); // Initialize useNavigate
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Close the profile menu if the user clicks outside of it
   useEffect(() => {
@@ -54,7 +55,7 @@ const ProfileMenu = ({ isOpen, onClose }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/users/user-details?email=${email}`);
+      const response = await fetch(`${backendUrl}/api/users/user-details?email=${email}`);
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }

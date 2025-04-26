@@ -13,12 +13,13 @@ const Munshi_Complaint = () => {
   const [showPopup, setShowPopup] = useState(false); // Popup state
   const [expandedComplaintId, setExpandedComplaintId] = useState(null); // For modal
   const navigate = useNavigate();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/users/complaints-munshi"
+          `${backendUrl}/api/users/complaints-munshi`
         );
         const messComplaints = response.data.complaints.filter(
           (complaint) => complaint.title === "Mess"

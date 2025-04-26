@@ -24,6 +24,7 @@ const SA_HostelDashboard = () => {
   const handleEdit = (id) => {
     console.log(`Edit button clicked for Hostel ${id}`);
   };
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   return (
     <div className="sa-hostel-container">

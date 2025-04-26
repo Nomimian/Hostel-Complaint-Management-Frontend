@@ -13,11 +13,12 @@ const SA_DashboardWarden = () => {
   const [showModal, setShowModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchWardens = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/wardens");
+        const response = await axios.get(`${backendUrl}/api/users/wardens`);
         setWardens(response.data);
       } catch (error) {
         console.error("Error fetching wardens:", error);
@@ -28,7 +29,7 @@ const SA_DashboardWarden = () => {
 
   const handleRemove = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/wardens/${id}`);
+      await axios.delete(`${backendUrl}/api/users/wardens/${id}`);
       setWardens(wardens.filter((warden) => warden._id !== id));
     } catch (error) {
       console.error("Error removing warden:", error);
@@ -39,7 +40,7 @@ const SA_DashboardWarden = () => {
     try {
       const WarData = { ...newWarden, role: "Warden", hostel: "none" }; // Merging both properties
       console.log("Adding new warden:", newWarden); // Debugging line
-      const response = await axios.post("http://localhost:5000/api/users/wardens", WarData);
+      const response = await axios.post(`${backendUrl}/api/users/wardens`, WarData);
       console.log("Response:", response.data); // Debugging line
 
       if (response.status === 201) { // Ensure success response
@@ -68,7 +69,7 @@ const SA_DashboardWarden = () => {
 
   const handleSaveEdit = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/users/wardens/${id}`, { name: editName, campus: editCampus });
+      await axios.put(`${backendUrl}/api/users/wardens/${id}`, { name: editName, campus: editCampus });
       setWardens(wardens.map((warden) => (warden._id === id ? { ...warden, name: editName, campus: editCampus } : warden)));
       setEditingId(null);
     } catch (error) {

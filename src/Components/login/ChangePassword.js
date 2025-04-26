@@ -15,6 +15,7 @@ function ChangePassword() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate for navigation
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Fetch email from localStorage on component mount
   useEffect(() => {
@@ -62,7 +63,7 @@ function ChangePassword() {
   
     try {
       // Now use the stored email from localStorage
-      const response = await axios.put('https://hostel-complaint-management-backend.vercel.app/api/users/update-password', {
+      const response = await axios.put(`${backendUrl}/api/users/update-password`, {
         email: storedEmail,  // Send email from localStorage
         newPassword
       });

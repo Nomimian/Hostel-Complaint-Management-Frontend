@@ -33,6 +33,7 @@ const RT_Graph_Dashboard = () => {
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   const graphLabels = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"];
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     fetchGraphData(selectedMonth);
@@ -40,7 +41,7 @@ const RT_Graph_Dashboard = () => {
 
   const fetchGraphData = async (month) => {
     try {
-      const response = await axios.get(`https://hostel-complaint-management-backend.vercel.app/api/users/complaint-stats?month=${month}&hostel=${hostel}`);
+      const response = await axios.get(`${backendUrl}/api/users/complaint-stats?month=${month}&hostel=${hostel}`);
       setGraphData(response.data);
     } catch (error) {
       console.error("Error fetching graph data:", error);

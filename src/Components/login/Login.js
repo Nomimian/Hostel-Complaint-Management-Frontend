@@ -15,6 +15,7 @@ function Login() {
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Toggle password visibility
   const togglePasswordVisibility = () => {
@@ -36,10 +37,11 @@ function Login() {
 
     try {
       // Send login request
-      const response = await axios.post('https://hostel-complaint-management-backend.onrender.com/api/users/login', {
+      const response = await axios.post(`${backendUrl}/api/users/login`, {
         email,
         password,
       });
+      console.log(response.data); // or handle success
 
 
 

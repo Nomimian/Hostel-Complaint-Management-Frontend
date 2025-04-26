@@ -14,6 +14,8 @@ const EndUser_Complaint = () => {
   const [showFilterMenu, setShowFilterMenu] = useState(false); // Toggle filter dropdown
   const [showPopup, setShowPopup] = useState(false); // Popup state
   const [expandedComplaintId, setExpandedComplaintId] = useState(null); // For modal
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   // UNCOMMENT THIS AFTER ADDING MODAL
 
   // const location = useLocation();
@@ -30,7 +32,7 @@ const EndUser_Complaint = () => {
       try {
         const regNo = localStorage.getItem("userRegNo");
         const response = await axios.get(
-          `http://localhost:5000/api/users/complaints-enduser/${regNo}`
+          `${backendUrl}/api/users/complaints-enduser/${regNo}`
         );
         setComplaints(response.data.complaints);
         setFilteredComplaints(response.data.complaints); // ✅ Set filteredComplaints too
@@ -52,7 +54,7 @@ const EndUser_Complaint = () => {
   };
   const handleDoneClick = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/users/update-status/${id}`, {
+      await axios.put(`${backendUrl}/api/users/update-status/${id}`, {
         status: "Done",
       });
 

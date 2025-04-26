@@ -11,11 +11,12 @@ const EndUserList_Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null); // For viewing user details
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchEndUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/end-users");
+        const response = await axios.get(`${backendUrl}/api/users/end-users`);
         setEndUsers(response.data.endUsers || []);
         setLoading(false);
       } catch (error) {
@@ -68,7 +69,7 @@ const EndUserList_Dashboard = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/end-users",
+        `${backendUrl}/api/users/end-users`,
         newUser
       );
 
@@ -97,7 +98,7 @@ const EndUserList_Dashboard = () => {
     try {
       const { _id, ...updatedData } = userToUpdate;
       const response = await axios.put(
-        `http://localhost:5000/api/users/end-users/${userId}`,
+        `${backendUrl}/api/users/end-users/${userId}`,
         updatedData
       );
 
@@ -117,7 +118,7 @@ const EndUserList_Dashboard = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/users/end-users/${id}`
+        `${backendUrl}/api/users/end-users/${id}`
       );
 
       console.log("Delete Response:", response.data);

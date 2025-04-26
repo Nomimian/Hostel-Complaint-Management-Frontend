@@ -17,6 +17,7 @@ const ComplaintList = ({ searchQuery = "" }) => {
   const [showRejectModal, setShowRejectModal] = useState(null); // Track rejection modal state
   const [rejectReason, setRejectReason] = useState(""); // Store rejection reason
   const location = useLocation();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     if (location.state && location.state.complaintId) {
@@ -36,7 +37,7 @@ const ComplaintList = ({ searchQuery = "" }) => {
 
         // Fetch RT details from the backend using email
         const rtResponse = await axios.get(
-          `http://localhost:5000/api/users/get-rt/${rtEmail}`
+          `${backendUrl}/api/users/get-rt/${rtEmail}`
         );
         const rtData = rtResponse.data;
 
@@ -55,7 +56,7 @@ const ComplaintList = ({ searchQuery = "" }) => {
     const fetchComplaints = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/users/complaints"
+          `${backendUrl}/api/users/complaints`
         );
         const complaintsData = response.data.complaints;
   
@@ -64,14 +65,14 @@ const ComplaintList = ({ searchQuery = "" }) => {
           if (complaint.status === "Student") {
             // Update status to "RT"
             await axios.put(
-              `http://localhost:5000/api/users/update-status-to-rt/${complaint._id}`
+              `${backendUrl}/api/users/update-status-to-rt/${complaint._id}`
             );
           }
         }
   
         // Fetch updated complaints after status change
         const updatedResponse = await axios.get(
-          "http://localhost:5000/api/users/complaints"
+          `${backendUrl}/api/users/complaints`
         );
         const updatedComplaints = updatedResponse.data.complaints;
   
@@ -125,7 +126,7 @@ const ComplaintList = ({ searchQuery = "" }) => {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/users/update-status/${selectedComplaint._id}`,
+        `${backendUrl}/api/users/update-status/${selectedComplaint._id}`,
         {
           status: targetRole, // Update status to Warden or Munshi
           priority: priority,
@@ -182,7 +183,7 @@ const ComplaintList = ({ searchQuery = "" }) => {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/users/reject-complaint/${showRejectModal}`,
+        `${backendUrl}/api/users/reject-complaint/${showRejectModal}`,
         {
           status: "Rejected",
           reason: rejectReason,

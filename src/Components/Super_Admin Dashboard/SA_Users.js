@@ -19,11 +19,12 @@ const roleToPath = {
 const KeyFeatureHome = () => {
   const navigate = useNavigate();
   const [roles, setRoles] = useState([]);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/distinct-roles");
+        const response = await axios.get(`${backendUrl}/api/users/distinct-roles`);
         setRoles(response.data);
       } catch (error) {
         console.error("Error fetching roles:", error);

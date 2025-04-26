@@ -6,11 +6,12 @@ const CCDashboardRT = () => {
   const [rts, setRts] = useState([]);
   const [selectedRT, setSelectedRT] = useState(null);
   const [viewModal, setViewModal] = useState(false);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchRTs = async () => {
       try {
-        const response = await axios.get("https://hostel-complaint-management-backend.vercel.app/api/users/rts");
+        const response = await axios.get(`${backendUrl}/api/users/rts`);
         setRts(response.data);
       } catch (error) {
         console.error("Error fetching RTs:", error);

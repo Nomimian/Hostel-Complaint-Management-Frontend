@@ -17,6 +17,7 @@ const ComplaintForm = () => {
   const [hostel, setHostel] = useState(''); // Store hostel dynamically
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false); // Popup state
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const location = useLocation();
   const navigate = useNavigate(); // For navigation
@@ -44,7 +45,7 @@ const ComplaintForm = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:5000/api/users/user-details', {
+        const response = await axios.get(`${backendUrl}/api/users/user-details`, {
           params: { email },
         });
 
@@ -82,7 +83,7 @@ const ComplaintForm = () => {
     try {
       // Submit the complaint
       const response = await axios.post(
-        'http://localhost:5000/api/users/submit-complaint',
+        `${backendUrl}/api/users/submit-complaint`,
         complaintData
       );
   

@@ -6,11 +6,12 @@ import axios from "axios";
 
 const FooterSection = () => {
   const [counts, setCounts] = useState({ students: 0, totalComplaints: 0, resolvedComplaints: 0, pendingComplaints: 0 });
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const response = await axios.get("https://hostel-complaint-management-backend.vercel.app/api/users/stats");
+        const response = await axios.get(`${backendUrl}/api/users/stats`);
         setCounts(response.data);
       } catch (error) {
         console.error("Error fetching counts:", error.message);

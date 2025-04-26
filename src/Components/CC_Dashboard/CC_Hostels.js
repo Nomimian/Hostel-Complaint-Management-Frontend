@@ -19,6 +19,7 @@ const features = [
   { img: Image6, hoverImg: HoverImage6, alt: "Effectively Manage Root User Role" },
   { img: Image7, hoverImg: HoverImage7, alt: "Collect Suggestions and Feedback" },
 ];
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const CCHostels = () => {
   const navigate = useNavigate();
@@ -28,12 +29,12 @@ const CCHostels = () => {
     navigate("/graph-view/"+hostelName); // Navigates to Add New Hostel page
   };
   const [hostels, setHostels] = useState([]);
-
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   useEffect(() => {
     const fetchHostels = async () => {
       try {
         const response = await axios.get(
-          "https://hostel-complaint-management-backend.vercel.app/api/users/hostels"
+          `${backendUrl}/api/users/hostels`
         );
         setHostels(response.data);
       } catch (error) {

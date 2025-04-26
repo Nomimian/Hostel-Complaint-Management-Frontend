@@ -17,14 +17,14 @@ function OTPVerification() {
   const [isSending, setIsSending] = useState(false); // Track whether OTP is being sent
   const [isVerifying, setIsVerifying] = useState(false); // Track OTP verification status
   const [otpVerified, setOtpVerified] = useState(false); // Flag to track OTP verification success
-
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   // Function to send OTP (called once on button click)
   const sendOTP = async () => {
     setLoading(true);
     setError('');
     setIsSending(true); // Set sending state
     try {
-      await axios.post('https://hostel-complaint-management-backend.vercel.app/api/users/send-otp', { email });
+      await axios.post(`${backendUrl}/api/users/send-otp`, { email });
       setOtpSent(true); // OTP has been successfully sent
       setCountdown(30); // Reset countdown after sending OTP
     } catch (error) {
@@ -47,7 +47,7 @@ function OTPVerification() {
     setError('');
     setIsVerifying(true); // Set verifying state
     try {
-      const response = await axios.post('https://hostel-complaint-management-backend.vercel.app/api/users/verify-otp', { email, otp });
+      const response = await axios.post(`${backendUrl}/api/users/verify-otp`, { email, otp });
       setOtpVerified(true); // Set OTP verified to true
       setError(''); // Clear any previous errors
       navigate('/change-password', { state: { email } }); // Redirect to change password page with email

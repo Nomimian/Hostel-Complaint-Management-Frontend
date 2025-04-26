@@ -6,6 +6,7 @@ const SA_DashboardRT = () => {
   const [rts, setRTs] = useState([]);
   const [editingRT, setEditingRT] = useState(null);
   const [selectedRT, setSelectedRT] = useState(null); // State for viewing RT details
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [newRT, setNewRT] = useState({
     name: "",
@@ -25,7 +26,7 @@ const SA_DashboardRT = () => {
 
   const fetchRTs = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users/rts");
+      const response = await axios.get(`${backendUrl}/api/users/rts`);
       setRTs(response.data);
     } catch (error) {
       console.error("Error fetching RTs:", error);
@@ -38,7 +39,7 @@ const SA_DashboardRT = () => {
 
   const handleSave = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/users/rts/${id}`, editingRT);
+      await axios.put(`${backendUrl}/api/users/rts/${id}`, editingRT);
       setRTs(rts.map((rt) => (rt._id === id ? editingRT : rt)));
       setEditingRT(null);
     } catch (error) {
@@ -48,7 +49,7 @@ const SA_DashboardRT = () => {
 
   const handleRemove = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/rts/${id}`);
+      await axios.delete(`${backendUrl}/api/users/rts/${id}`);
       setRTs(rts.filter((rt) => rt._id !== id));
     } catch (error) {
       console.error("Error deleting RT:", error);
@@ -58,7 +59,7 @@ const SA_DashboardRT = () => {
   const handleAddNewUser = async () => {
     try {
       console.log("Adding new RT:", newRT); // Debugging log
-      const response = await axios.post("http://localhost:5000/api/users/rts", newRT);
+      const response = await axios.post(`${backendUrl}/api/users/rts`, newRT);
 
       setRTs([...rts, response.data]);
       setShowModal(false);

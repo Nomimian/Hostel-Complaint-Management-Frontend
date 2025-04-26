@@ -18,6 +18,7 @@ import "./RT_Graph.css";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
 const RT_Graph_Dashboard = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [selectedMonth, setSelectedMonth] = useState("February");
   const [graphData, setGraphData] = useState({
     resolved: [],
@@ -35,7 +36,7 @@ const RT_Graph_Dashboard = () => {
 
   const fetchGraphData = async (month) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/complaint-stats?month=${month}&hostel=${hostel}`);
+      const response = await axios.get(`${backendUrl}/api/users/complaint-stats?month=${month}&hostel=${hostel}`);
       setGraphData(response.data);
     } catch (error) {
       console.error("Error fetching graph data:", error);
